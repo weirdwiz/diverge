@@ -5,8 +5,11 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/csrf"
+	uuid "github.com/satori/go.uuid"
+	"github.com/weirdwiz/diverge/data"
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -25,17 +28,24 @@ func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
 func SubmitRegisterForm(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
-		fmt.Println(err)
-	}
-	u := &User{
-		Username: r.PostForm.Get("username"),
-		Name:     r.PostForm.Get("name"),
-		Email:    r.PostForm.Get("email"),
-	}
-
-	err = u.register()
-	if err != nil {
-		// Handle error
 		log.Fatal(err)
 	}
+	if r.Form["password"][0] == r.Form["retype-password"][0] {
+		u := &data.User{
+			Username: r.Form["username"][0],
+			Name:     r.Form["name"][0],
+			Email:    r.Form["email"][0],
+			CreateOn: time.Now(),
+			ID:       uuid.NewV4(),
+		}
+
+		err = u.Create()
+		if err != nil {
+			// Handle error
+			log.Fatal(err)
+		}
+	} else {
+		fmt.Println("lol")
+	}
+
 }

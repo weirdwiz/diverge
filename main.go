@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gorilla/csrf"
@@ -20,7 +19,9 @@ func newRouter() *mux.Router {
 
 func main() {
 	r := newRouter()
-	key = "32-bit-key"
-	CSRF := csrf.Protect([]byte(key))
-	log.Fatal(http.ListenAndServe(":8080", CSRF(r)))
+	http.ListenAndServe(":8000",
+		csrf.Protect(
+			[]byte("32-byte-long-auth-key"),
+			csrf.Secure(false), // Pass it *to* this constructor
+		)(r))
 }

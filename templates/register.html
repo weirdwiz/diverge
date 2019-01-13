@@ -1,11 +1,19 @@
 <html>
-  <head> </head>
-  <body>
-    <form method="POST" action="/regist">
-      <label> username <input type="text" name="username"/></label>
-      <label> name <input type="text" name="name" /> </label>
-      <label>email <input type="text" name="email"/></label>
-      <input type="submit" />
-    </form>
-  </body>
+
+<head> </head>
+
+<body>
+  <form method="POST" action="/register/post" accept-charset="UTF-8">
+
+    <label> username <input type="text" name="username" /></label>
+    <label> name <input type="text" name="name" /> </label>
+    <label>email <input type="text" name="email" /></label>
+    <label>password<input type="password" name="password"></label>
+    <label>retype password<input type="password" name="retype-password"></label>
+    {{.csrfFeild}}
+
+    <input type="submit" />
+  </form>
+</body>
+
 </html>
