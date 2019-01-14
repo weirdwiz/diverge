@@ -3,6 +3,9 @@
 <head> </head>
 
 <body>
+  {{ if errMsg }}
+  <div class="error">{{ .errMsg }}</div>
+  {{ end }}
   <form method="POST" action="/register/post" accept-charset="UTF-8">
 
     <label> username <input type="text" name="username" /></label>
@@ -10,9 +13,8 @@
     <label>email <input type="text" name="email" /></label>
     <label>password<input type="password" name="password"></label>
     <label>retype password<input type="password" name="retype-password"></label>
-    {{.csrfFeild}}
-
     <input type="submit" />
+
   </form>
 </body>
 

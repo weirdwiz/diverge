@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gorilla/csrf"
 	uuid "github.com/satori/go.uuid"
 	"github.com/weirdwiz/diverge/data"
 )
@@ -18,10 +17,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 // ShowRegisterForm handles the view of the registeration page
 func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
+	errMsg := r.URL.Query()["err"]
 	tmpl := template.Must(template.ParseFiles("templates/register.html"))
-	tmpl.ExecuteTemplate(w, "register.html", map[string]interface{}{
-		csrf.TemplateTag: csrf.TemplateField(r),
-	})
+	tmpl.ExecuteTemplate(w, "register.html", errMsg)
 }
 
 // SubmitRegisterForm handler the submition of the registration page
@@ -36,7 +34,7 @@ func SubmitRegisterForm(w http.ResponseWriter, r *http.Request) {
 			Name:     r.Form["name"][0],
 			Email:    r.Form["email"][0],
 			CreateOn: time.Now(),
-			ID:       uuid.NewV4(),
+			ID:       uuid.NewV4().String(),
 		}
 
 		err = u.Create()
@@ -44,6 +42,7 @@ func SubmitRegisterForm(w http.ResponseWriter, r *http.Request) {
 			// Handle error
 			log.Fatal(err)
 		}
+		http.Redirect(w, r, "/", http.StatusFound)
 	} else {
 		fmt.Println("lol")
 	}

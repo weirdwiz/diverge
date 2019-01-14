@@ -1,9 +1,9 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
-	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 )
 
@@ -19,9 +19,5 @@ func newRouter() *mux.Router {
 
 func main() {
 	r := newRouter()
-	http.ListenAndServe(":8000",
-		csrf.Protect(
-			[]byte("32-byte-long-auth-key"),
-			csrf.Secure(false), // Pass it *to* this constructor
-		)(r))
+	log.Fatal(http.ListenAndServe(":6969", r))
 }
