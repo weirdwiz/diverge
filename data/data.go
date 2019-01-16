@@ -9,6 +9,7 @@ import (
 )
 
 var users *mongo.Collection
+var sessions *mongo.Collection
 
 func init() {
 	var err error
@@ -19,4 +20,5 @@ func init() {
 		log.Fatal("Fucking failed to connect to DB, I am a faggot")
 	}
 	users = client.Database("diverge").Collection("users")
+	sessions = client.Database("diverge").Collection("session")
 }

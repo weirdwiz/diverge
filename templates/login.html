@@ -1,0 +1,17 @@
+<html>
+
+<head> </head>
+
+<body>
+    {{ if errMsg }}
+    <div class="error">{{ .errMsg }}</div>
+    {{ end }}
+    <form method="POST" action="/login/post" accept-charset="UTF-8">
+
+        <label>Username <input type="text" name="username"></label>
+        <label>Password <input type="password" name="password"></label>
+
+    </form>
+</body>
+
+</html>
