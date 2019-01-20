@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -34,7 +33,7 @@ func main() {
 
 	// starting up the server
 	server := &http.Server{
-		Addr:           os.Getenv("PORT"),
+		Addr:           config.Address,
 		Handler:        mux,
 		ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
 		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
