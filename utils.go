@@ -37,7 +37,6 @@ func init() {
 	}
 	logger = log.New(file, "INFO ", log.Ldate|log.Ltime|log.Lshortfile)
 }
-
 func loadConfig() {
 	file, err := os.Open("config.json")
 	if err != nil {
