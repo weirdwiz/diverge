@@ -2,8 +2,6 @@ package main
 
 import (
 	"net/http"
-
-	"github.com/weirdwiz/labyrinth/data"
 )
 
 // GET /err?msg=
@@ -19,15 +17,11 @@ func err(writer http.ResponseWriter, request *http.Request) {
 }
 
 func index(writer http.ResponseWriter, request *http.Request) {
-	threads, err := data.Threads()
+	_, err := session(writer, request)
 	if err != nil {
-		errorMessage(writer, request, "Cannot get threads")
+		generateHTML(writer, nil, "layout", "public.navbar", "index")
 	} else {
-		_, err := session(writer, request)
-		if err != nil {
-			generateHTML(writer, threads, "layout", "public.navbar", "index")
-		} else {
-			generateHTML(writer, threads, "layout", "private.navbar", "index")
-		}
+		generateHTML(writer, nil, "layout", "private.navbar", "index")
+
 	}
 }

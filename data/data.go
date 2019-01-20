@@ -5,15 +5,19 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
+
 	"log"
+
+	// Database
+	_ "github.com/lib/pq"
 )
 
+// Db : the variable to access the database connection
 var Db *sql.DB
 
 func init() {
 	var err error
-	Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
+	Db, err = sql.Open("postgres", "dbname=labyrinth sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,7 +42,7 @@ func createUUID() (uuid string) {
 	return
 }
 
-// hash plaintext with SHA-1
+// Encrypt hash plaintext with SHA-1
 func Encrypt(plaintext string) (cryptext string) {
 	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
 	return

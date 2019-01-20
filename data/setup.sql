@@ -1,39 +1,37 @@
-drop table posts;
-drop table threads;
-drop table sessions;
 drop table users;
+drop table sessions;
+drop table leaderboard;
+drop table question_table;
 
-
-create table users (
-  id         serial primary key,
-  uuid       varchar(64) not null unique,
-  name       varchar(255),
-  email      varchar(255) not null unique,
-  password   varchar(255) not null,
-  created_at timestamp not null   
+create table users
+(
+  id serial primary key,
+  uuid varchar(64) not null unique,
+  username varchar(255) not null unique,
+  email varchar(255) not null unique,
+  password varchar(255) not null,
+  created_at timestamp not null
 );
 
-create table sessions (
-  id         serial primary key,
-  uuid       varchar(64) not null unique,
-  email      varchar(255),
-  user_id    integer references users(id),
-  created_at timestamp not null   
+create table sessions
+(
+  id serial primary key,
+  uuid varchar(64) not null unique,
+  email varchar(255),
+  user_id integer references users(id),
+  created_at timestamp not null
 );
 
-create table threads (
-  id         serial primary key,
-  uuid       varchar(64) not null unique,
-  topic      text,
-  user_id    integer references users(id),
-  created_at timestamp not null       
+create table leaderboard
+(
+  id serial primary key,
+  username varchar(255) references users(username),
+  level integer DEFAULT 0,
+  solve_time timestamp not null
 );
 
-create table posts (
-  id         serial primary key,
-  uuid       varchar(64) not null unique,
-  body       text,
-  user_id    integer references users(id),
-  thread_id  integer references threads(id),
-  created_at timestamp not null  
+create table question_table
+(
+  id serial primary key,
+  question varchar(100) not null
 );

@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	p("ChitChat", version(), "started at", config.Address)
+	p("Labyrinth", version(), "started at", config.Address)
 
 	// handle static assets
 	mux := http.NewServeMux()
@@ -29,13 +29,7 @@ func main() {
 	mux.HandleFunc("/signup", signup)
 	mux.HandleFunc("/signup_account", signupAccount)
 	mux.HandleFunc("/authenticate", authenticate)
-
-	// defined in route_thread.go
-	mux.HandleFunc("/thread/new", newThread)
-	mux.HandleFunc("/thread/create", createThread)
-	mux.HandleFunc("/thread/post", postThread)
-	mux.HandleFunc("/thread/read", readThread)
-
+	mux.HandleFunc("/leaderboard", showLeaderBoard)
 	// starting up the server
 	server := &http.Server{
 		Addr:           config.Address,

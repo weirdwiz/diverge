@@ -31,7 +31,7 @@ func p(a ...interface{}) {
 
 func init() {
 	loadConfig()
-	file, err := os.OpenFile("chitchat.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	file, err := os.OpenFile("labyrinth.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalln("Failed to open log file", err)
 	}
@@ -61,7 +61,7 @@ func errorMessage(writer http.ResponseWriter, request *http.Request, msg string)
 func session(writer http.ResponseWriter, request *http.Request) (sess data.Session, err error) {
 	cookie, err := request.Cookie("_cookie")
 	if err == nil {
-		sess = data.Session{Uuid: cookie.Value}
+		sess = data.Session{UUID: cookie.Value}
 		if ok, _ := sess.Check(); !ok {
 			err = errors.New("Invalid session")
 		}
