@@ -199,7 +199,7 @@ func UserByUUID(uuid string) (user User, err error) {
 
 // GetLeaderBoard : returns the current leaderboard
 func GetLeaderBoard() (leaderbaord []*LeaderBoardRow, err error) {
-	rows, err := Db.Query("SELECT username, level FROM leaderboard ORDER BY level, solve_time DESC")
+	rows, err := Db.Query("SELECT username, level FROM leaderboard ORDER BY level DESC, solve_time ASC")
 	rank := 1
 	if err != nil {
 		return
