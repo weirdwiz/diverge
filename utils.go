@@ -97,6 +97,7 @@ func info(args ...interface{}) {
 }
 
 func danger(args ...interface{}) {
+	fmt.Println(args...)
 	logger.SetPrefix("ERROR ")
 	logger.Println(args...)
 }
