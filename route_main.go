@@ -19,9 +19,8 @@ func err(writer http.ResponseWriter, request *http.Request) {
 func index(writer http.ResponseWriter, request *http.Request) {
 	_, err := session(writer, request)
 	if err != nil {
-		generateHTML(writer, nil, "layout", "public.navbar", "index")
+		http.Redirect(writer, request, "/login", http.StatusFound)
 	} else {
-		generateHTML(writer, nil, "layout", "private.navbar", "index")
-
+		http.Redirect(writer, request, "/play", http.StatusFound)
 	}
 }
