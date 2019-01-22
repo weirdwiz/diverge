@@ -27,8 +27,10 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Print(string(dat))
-	Db.Exec(string(dat))
+	for _, v := range strings.Split(string(dat), "\n\n") {
+		fmt.Print(v)
+		Db.Exec(v)
+	}
 	return
 }
 // create a random UUID with from RFC 4122
