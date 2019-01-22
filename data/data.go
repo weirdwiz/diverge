@@ -5,12 +5,12 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	// "os"
+	"os"
 	"log"
 	"io/ioutil"
 
 	// Database
-	// _ "github.com/lib/pq"
+	_ "github.com/lib/pq"
 )
 
 // Db : the variable to access the database connection
