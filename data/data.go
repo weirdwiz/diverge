@@ -23,7 +23,7 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	dat, err := ioutil.ReadFile("setup.sql")
+	dat, err := ioutil.ReadFile("/setup.sql")
 	if err != nil {
 		log.Fatal(err)
 	}
