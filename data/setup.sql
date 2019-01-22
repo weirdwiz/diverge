@@ -1,9 +1,9 @@
-drop table users;
-drop table sessions;
-drop table leaderboard;
-drop table question_table;
+-- drop table users;
+-- drop table sessions;
+-- drop table leaderboard;
+-- drop table question_table;
 
-create table users
+create table if not exists users 
 (
   id serial primary key,
   uuid varchar(64) not null unique,
@@ -13,7 +13,7 @@ create table users
   created_at timestamp not null
 );
 
-create table sessions
+create table if not exists sessions
 (
   id serial primary key,
   uuid varchar(64) not null unique,
@@ -22,7 +22,7 @@ create table sessions
   created_at timestamp not null
 );
 
-create table leaderboard
+create table if not exists leaderboard
 (
   id serial primary key,
   username varchar(255) references users(username),
@@ -30,7 +30,7 @@ create table leaderboard
   solve_time timestamp not null
 );
 
-create table question_table
+create table if not exists question_table
 (
   id serial primary key,
   question varchar(100) not null

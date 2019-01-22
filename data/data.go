@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"log"
+	"io/ioutil"
 
 	// Database
 	_ "github.com/lib/pq"
@@ -21,6 +22,11 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	dat, err := ioutil.ReadFile("setup.sql")
+	if err != nil {
+		log.Fatal(err)
+	}
+	Db.Exec(dat)
 	return
 }
 
