@@ -29,6 +29,7 @@ func init() {
 		log.Fatal(err)
 	}
 	for _, v := range strings.Split(string(dat), "\n\n") {
+		v = strings.Replace(v, "\n", "", -1)
 		fmt.Print(v)
 		Db.Exec(v)
 	}
