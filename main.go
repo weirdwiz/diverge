@@ -7,6 +7,11 @@ import (
 
 func main() {
 	p("Labyrinth", version(), "started at", config.Address)
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
 
 	// handle static assets
 	mux := http.NewServeMux()
@@ -41,5 +46,5 @@ func main() {
 		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
 		MaxHeaderBytes: 1 << 20,
 	}
-	server.ListenAndServe()
+	server.ListenAndServe(":" + port)
 }
