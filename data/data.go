@@ -5,12 +5,12 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	"os"
+	// "os"
 	"log"
 	"io/ioutil"
 
 	// Database
-	_ "github.com/lib/pq"
+	// _ "github.com/lib/pq"
 )
 
 // Db : the variable to access the database connection
@@ -18,9 +18,8 @@ var Db *sql.DB
 
 func init() {
 	var err error
-	var dat string
-	var res string
 	Db, err = sql.Open("postgres", "dbname=" + os.Getenv("DATABASE_URL") + " sslmode=disable")
+	// Db, err = sql.Open("postgres", "dbname=labyrinth sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -29,13 +28,9 @@ func init() {
 		log.Fatal(err)
 	}
 	fmt.Print(string(dat))
-	res, err = Db.Exec(string(dat))
-	if err != nil {
-		log.Fatal(err)
-	}
+	Db.Exec(string(dat))
 	return
 }
-
 // create a random UUID with from RFC 4122
 // adapted from http://github.com/nu7hatch/gouuid
 func createUUID() (uuid string) {
