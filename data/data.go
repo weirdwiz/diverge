@@ -8,6 +8,7 @@ import (
 	"os"
 	"log"
 	"io/ioutil"
+	"strings"
 
 	// Database
 	_ "github.com/lib/pq"
