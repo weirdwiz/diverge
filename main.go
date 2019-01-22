@@ -46,5 +46,5 @@ func main() {
 		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
 		MaxHeaderBytes: 1 << 20,
 	}
-	server.ListenAndServe(":" + port)
+	server.ListenAndServe(":" + port, nil)
 }
