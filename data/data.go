@@ -26,7 +26,11 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Db.Exec(dat)
+	fmt.Print(string(dat))
+	res, err = Db.Exec(string(dat))
+	if err != nil {
+		log.Fatal(err)
+	}
 	return
 }
 
