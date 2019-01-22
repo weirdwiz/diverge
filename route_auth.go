@@ -41,7 +41,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 // Authenticate the user given the email and password
 func authenticate(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
-	user, err := data.UserByEmail(request.PostFormValue("email"))
+	user, err := data.UserByUsername(request.PostFormValue("username"))
 	if err != nil {
 		danger(err, "Cannot find user")
 	}

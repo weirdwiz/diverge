@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -24,6 +23,8 @@ func main() {
 	// error
 	mux.HandleFunc("/err", err)
 
+	// defined in route_play.go
+	mux.HandleFunc("/play", showQuestion)
 	// defined in route_auth.go
 	mux.HandleFunc("/login", login)
 	mux.HandleFunc("/logout", logout)
@@ -34,7 +35,7 @@ func main() {
 
 	// starting up the server
 	server := &http.Server{
-		Addr:           os.Getenv("PORT"),
+		Addr:           config.Address,
 		Handler:        mux,
 		ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
 		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),

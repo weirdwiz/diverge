@@ -1,3 +1,12 @@
 {{ define "content" }}
+<form class="form-signin center" role="form" action="/authenticate" method="post">
+    <h2 class="form-signin-heading">
+        {{ . }}
+    </h2>
+    <input type="text" name="answer" class="form-control" placeholder="Answer" required>
+    <br />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    <br />
+</form>
 
 {{ end }}

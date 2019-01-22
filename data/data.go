@@ -5,7 +5,6 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	"os"
 
 	"log"
 
@@ -18,7 +17,7 @@ var Db *sql.DB
 
 func init() {
 	var err error
-	Db, err = sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	Db, err = sql.Open("postgres", "dbname=labyrinth sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
