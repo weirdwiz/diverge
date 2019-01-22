@@ -18,6 +18,8 @@ var Db *sql.DB
 
 func init() {
 	var err error
+	var dat string
+	var res string
 	Db, err = sql.Open("postgres", "dbname=" + os.Getenv("DATABASE_URL") + " sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
