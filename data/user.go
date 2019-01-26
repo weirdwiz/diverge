@@ -181,10 +181,10 @@ func Users() (users []User, err error) {
 	return
 }
 
-// UserByUsername : Get a single user given the username
-func UserByUsername(username string) (user User, err error) {
+// UserByEmail : Get a single user given the username
+func UserByEmail(email string) (user User, err error) {
 	user = User{}
-	err = Db.QueryRow("SELECT id, uuid, username, email, password, created_at FROM users WHERE username = $1", username).
+	err = Db.QueryRow("SELECT id, uuid, username, email, password, created_at FROM users WHERE email = $1", email).
 		Scan(&user.ID, &user.UUID, &user.Username, &user.Email, &user.Password, &user.CreatedAt)
 	return
 }

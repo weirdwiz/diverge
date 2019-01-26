@@ -27,7 +27,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 		danger(err, "Cannot parse form")
 	}
 	user := data.User{
-		Username: request.PostFormValue("name"),
+		Username: request.PostFormValue("username"),
 		Email:    request.PostFormValue("email"),
 		Password: request.PostFormValue("password"),
 	}
@@ -41,7 +41,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 // Authenticate the user given the email and password
 func authenticate(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
-	user, err := data.UserByUsername(request.PostFormValue("username"))
+	user, err := data.UserByEmail(request.PostFormValue("email"))
 	if err != nil {
 		danger(err, "Cannot find user")
 	}
