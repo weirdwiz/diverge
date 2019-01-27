@@ -24,3 +24,7 @@ func index(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, "/play", http.StatusFound)
 	}
 }
+
+func showRules(w http.ResponseWriter, r *http.Request) {
+	generateHTML(w, "layout", "private.navbar", "rules")
+}

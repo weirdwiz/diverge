@@ -1,10 +1,10 @@
 package main
 
 import (
-	"net/http"
-	"time"
-	"os"
 	"log"
+	"net/http"
+	"os"
+	"time"
 )
 
 func main() {
@@ -39,10 +39,11 @@ func main() {
 	mux.HandleFunc("/signup_account", signupAccount)
 	mux.HandleFunc("/authenticate", authenticate)
 	mux.HandleFunc("/leaderboard", showLeaderBoard)
+	mux.HandleFunc("/rules", showRules)
 
 	// starting up the server
 	server := &http.Server{
-		Addr:           ":"+port,
+		Addr:           ":" + port,
 		Handler:        mux,
 		ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
 		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
