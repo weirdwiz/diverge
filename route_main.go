@@ -26,5 +26,9 @@ func index(writer http.ResponseWriter, request *http.Request) {
 }
 
 func showRules(w http.ResponseWriter, r *http.Request) {
+	_, err := session(w, r)
+	if err != nil {
+		errorMessage(w, r, "not logged in")
+	}
 	generateHTML(w, nil, "layout", "private.navbar", "rules")
 }
