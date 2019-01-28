@@ -26,5 +26,5 @@ func index(writer http.ResponseWriter, request *http.Request) {
 }
 
 func showRules(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, "layout", "private.navbar", "rules")
+	generateHTML(w, nil, "layout", "private.navbar", "rules")
 }
