@@ -22,5 +22,5 @@ import "net/http"
 // }
 
 func showQuestion(w http.ResponseWriter, r *http.Request) {
-	generateHTML(w, nil, "private.navbar", "layout", "index")
+	generateHTML(w, nil, "private.navbar", "layout", "index", "footer")
 }

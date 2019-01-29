@@ -12,7 +12,7 @@ func err(writer http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		generateHTML(writer, vals.Get("msg"), "layout", "public.navbar", "error")
 	} else {
-		generateHTML(writer, vals.Get("msg"), "layout", "private.navbar", "error")
+		generateHTML(writer, vals.Get("msg"), "layout", "private.navbar", "error", "footer")
 	}
 }
 
@@ -30,5 +30,5 @@ func showRules(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		errorMessage(w, r, "not logged in")
 	}
-	generateHTML(w, nil, "layout", "private.navbar", "rules")
+	generateHTML(w, nil, "layout", "private.navbar", "rules", "footer")
 }

@@ -17,5 +17,5 @@ func showLeaderBoard(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		danger(err)
 	}
-	generateHTML(w, leaderboard, "layout", "leaderboard", "private.navbar")
+	generateHTML(w, leaderboard, "layout", "leaderboard", "private.navbar", "footer")
 }

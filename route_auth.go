@@ -16,7 +16,7 @@ func login(writer http.ResponseWriter, request *http.Request) {
 // GET /signup
 // Show the signup page
 func signup(writer http.ResponseWriter, request *http.Request) {
-	generateHTML(writer, nil, "login.layout", "public.navbar", "signup")
+	generateHTML(writer, nil, "login.layout", "public.navbar", "signup", "footer")
 }
 
 // POST /signup

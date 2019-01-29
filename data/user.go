@@ -109,11 +109,17 @@ func SessionDeleteAll() (err error) {
 	return
 }
 
+// CheckIfExists : checks if username or email is taken
+func (user *User) CheckIfExists() (err error) {
+	return
+}
+
 // Create a new user, save user info into the database
 func (user *User) Create() (err error) {
 	// Postgres does not automatically return the last insert ID, because it would be wrong to assume
 	// you're always using a sequence.You need to use the RETURNING keyword in your insert to get this
 	// information from postgres.
+	err = user.CheckIfExists()
 	statement := "insert into users (uuid, username, email, password, created_at) values ($1, $2, $3, $4, $5) returning id, uuid, created_at"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
