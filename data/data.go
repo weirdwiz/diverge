@@ -5,9 +5,9 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	"os"
-	"log"
 	"io/ioutil"
+	"log"
+	"os"
 	"strings"
 
 	// Database
@@ -20,6 +20,7 @@ var Db *sql.DB
 func init() {
 	var err error
 	Db, err = sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	Db.SetMaxOpenConns(20)
 	// Db, err = sql.Open("postgres", "dbname=labyrinth sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
@@ -35,6 +36,7 @@ func init() {
 	}
 	return
 }
+
 // create a random UUID with from RFC 4122
 // adapted from http://github.com/nu7hatch/gouuid
 func createUUID() (uuid string) {
