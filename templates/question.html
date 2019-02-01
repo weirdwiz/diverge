@@ -1,12 +1,11 @@
 {{ define "content" }}
-<form class="form-signin center" role="form" action="/authenticate" method="post">
-    <h2 class="form-signin-heading">
+<div style="padding:20px">
+<form class="form-signin center w-50 center-block" role="form" action="/checkAnswer"  method="post">
         {{ . }}
-    </h2>
     <input type="text" name="answer" class="form-control" placeholder="Answer" required>
     <br />
     <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     <br />
 </form>
-
+</div>
 {{ end }}

@@ -33,6 +33,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	}
 	if err := user.Create(); err != nil {
 		danger(err, "Cannot create user")
+		errorMessage(writer, request, "Cannot create user, username or email already in use")
 	}
 	http.Redirect(writer, request, "/login", 302)
 }

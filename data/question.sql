@@ -1,0 +1,2 @@
+INSERT INTO question_table VALUES (0,' 32.940853, -97.149508 ','labyrinth');
+INSERT INTO question_table VALUES (1,' <img src="https://i.imgur.com/BO7PQNF.jpg" class="img-responsize center-block"> ', 'brexit');

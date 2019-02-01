@@ -40,6 +40,7 @@ func main() {
 	mux.HandleFunc("/authenticate", authenticate)
 	mux.HandleFunc("/leaderboard", showLeaderBoard)
 	mux.HandleFunc("/rules", showRules)
+	mux.HandleFunc("/checkAnswer", checkQuestion)
 
 	// starting up the server
 	server := &http.Server{
