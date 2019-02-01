@@ -1,7 +1,9 @@
 {{ define "content" }}
 <div style="padding:20px">
-<form class="form-signin center w-50 center-block" role="form" action="/checkAnswer"  method="post">
+<form class="form-signin center center-block" role="form" action="/checkAnswer" style="width:50%" method="post">
+    <h2 class="form-signin-heading">
         {{ . }}
+    </h2>
     <input type="text" name="answer" class="form-control" placeholder="Answer" required>
     <br />
     <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
