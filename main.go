@@ -26,7 +26,7 @@ func main() {
 	//
 
 	// index
-	mux.HandleFunc("/", index)
+	mux.HandleFunc("/", maintain)
 	// error
 	mux.HandleFunc("/err", err)
 
@@ -51,4 +51,8 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 	server.ListenAndServe()
+}
+
+func maintain(w http.ResponseWriter, r *http.Request) {
+	errorMessage(w, r, "We are currently facing an internal server issue, we are sorry for any inconvenience caused")
 }
