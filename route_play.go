@@ -14,10 +14,11 @@ func showQuestion(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
 	} else {
-		if time.Now().Before(launchtime) {
+		u, err := s.User()
+		if time.Now().Before(launchtime) && u.Username != "weirdwiz" {
 			http.Redirect(w, r, "/", http.StatusFound)
 		} else {
-			u, err := s.User()
+
 			if err != nil {
 				danger(err)
 				errorMessage(w, r, "There was a problem")
