@@ -27,7 +27,7 @@ func index(writer http.ResponseWriter, request *http.Request) {
 		if err != nil {
 			danger("cannot detect username")
 		}
-		if time.Now().Before(launchtime) || user.Username != "weirdwiz" {
+		if time.Now().Before(launchtime) && user.Username != "weirdwiz" {
 			generateHTML(writer, nil, "index", "layout", "private.navbar", "footer")
 		} else {
 			http.Redirect(writer, request, "/play", http.StatusFound)
