@@ -4,32 +4,27 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"time"
 )
 
 func showQuestion(w http.ResponseWriter, r *http.Request) {
-	launchtime, _ := time.Parse(time.RFC822, "04 Feb 19 15:30 UTC")
 
 	s, err := session(w, r)
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
 	} else {
 		u, err := s.User()
-		if time.Now().Before(launchtime) && u.Username != "weirdwiz" {
-			http.Redirect(w, r, "/", http.StatusFound)
-		} else {
 
-			if err != nil {
-				danger(err)
-				errorMessage(w, r, "There was a problem")
-			}
-			q, err := u.GetQuestion()
-			if err != nil {
-				danger(err)
-				errorMessage(w, r, "There was a problem in getting the questions")
-			}
-			generateHTML(w, template.HTML(q), "question", "private.navbar", "layout", "footer")
+		if err != nil {
+			danger(err)
+			errorMessage(w, r, "There was a problem")
 		}
+		q, err := u.GetQuestion()
+		if err != nil {
+			danger(err)
+			errorMessage(w, r, "There was a problem in getting the questions")
+		}
+		generateHTML(w, template.HTML(q), "question", "private.navbar", "layout", "footer")
+
 	}
 }
 
