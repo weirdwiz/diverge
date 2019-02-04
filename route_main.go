@@ -10,7 +10,7 @@ func err(writer http.ResponseWriter, request *http.Request) {
 	vals := request.URL.Query()
 	_, err := session(writer, request)
 	if err != nil {
-		generateHTML(writer, vals.Get("msg"), "layout", "public.navbar", "error")
+		generateHTML(writer, vals.Get("msg"), "layout", "public.navbar", "error", "footer")
 	} else {
 		generateHTML(writer, vals.Get("msg"), "layout", "private.navbar", "error", "footer")
 	}
