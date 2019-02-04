@@ -4,13 +4,19 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"time"
 )
 
 func showQuestion(w http.ResponseWriter, r *http.Request) {
+	launchtime, _ := time.Parse(time.RFC822, "04 Feb 19 15:30 UTC")
+
 	s, err := session(w, r)
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
 	} else {
+		if time.Now().Before(launchtime) {
+			http.Redirect(w, r, "/", http.StatusFound)
+		}
 		u, err := s.User()
 		if err != nil {
 			danger(err)
