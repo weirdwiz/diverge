@@ -19,7 +19,7 @@ func err(writer http.ResponseWriter, request *http.Request) {
 
 func index(writer http.ResponseWriter, request *http.Request) {
 	s, err := session(writer, request)
-	launchtime, _ := time.Parse(time.RFC822, "04 Feb 19 11:50 UTC")
+	launchtime, _ := time.Parse(time.RFC822, "04 Feb 19 15:30 UTC")
 	if err != nil {
 		http.Redirect(writer, request, "/login", http.StatusFound)
 	} else {
