@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"os"
 	"strings"
 
 	// Database
@@ -17,10 +16,18 @@ import (
 // Db : the variable to access the database connection
 var Db *sql.DB
 
+const (
+	host     = "68.183.81.97"
+	port     = 5433
+	user     = "postgres"
+	password = "herokusucks"
+	dbname   = "labyrinth"
+)
+
 func init() {
 	var err error
-	Db, err = sql.Open("postgres", os.Getenv("DATABASE_URL"))
-	Db.SetMaxOpenConns(20)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	Db, err = sql.Open("postgres", psqlInfo)
 	// Db, err = sql.Open("postgres", "dbname=labyrinth sslmode=disable")
 	if err != nil {
 		log.Fatal(err)

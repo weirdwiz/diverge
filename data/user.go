@@ -239,6 +239,7 @@ func GetLeaderBoard() (leaderbaord []*LeaderBoardRow, err error) {
 	if err != nil {
 		return
 	}
+	defer rows.Close()
 	for rows.Next() {
 		l := LeaderBoardRow{}
 		l.Rank = rank

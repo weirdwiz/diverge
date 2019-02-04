@@ -47,3 +47,7 @@ WARNING 2019/02/01 18:37:55 utils.go:107: <nil> Failed to get cookie
 ERROR 2019/02/01 18:38:25 utils.go:102: sql: no rows in result set
 ERROR 2019/02/01 18:38:25 utils.go:102: sql: no rows in result set
 ERROR 2019/02/01 18:38:34 utils.go:102: sql: no rows in result set
+ERROR 2019/02/01 20:09:48 utils.go:102: dial tcp 68.183.81.97:5432: connect: connection refused Cannot create user
+ERROR 2019/02/01 20:14:32 utils.go:102: dial tcp 68.183.81.97:5432: connect: connection refused Cannot create user
+ERROR 2019/02/01 20:16:24 utils.go:102: dial tcp 68.183.81.97:5432: connect: connection refused Cannot create user
+ERROR 2019/02/01 20:18:38 utils.go:102: dial tcp 68.183.81.97:5433: connect: connection refused Cannot create user
