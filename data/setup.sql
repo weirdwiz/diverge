@@ -1,37 +1,52 @@
-drop table users;
-drop table sessions;
-drop table leaderboard;
-drop table question_table;
-
-create table users
+CREATE TABLE IF NOT EXISTS users
 (
-  id serial primary key,
-  uuid varchar(64) not null unique,
-  username varchar(255) not null unique,
-  email varchar(255) not null unique,
-  password varchar(255) not null,
-  created_at timestamp not null
-);
+     id         SERIAL PRIMARY KEY,
+     uuid       VARCHAR
+(64) NOT NULL UNIQUE,
+     username   VARCHAR
+(255) NOT NULL UNIQUE,
+     email      VARCHAR
+(255) NOT NULL UNIQUE,
+     password   VARCHAR
+(255) NOT NULL,
+     created_at TIMESTAMP NOT NULL
+  );
 
-create table sessions
+CREATE TABLE IF NOT EXISTS sessions
 (
-  id serial primary key,
-  uuid varchar(64) not null unique,
-  email varchar(255),
-  user_id integer references users(id),
-  created_at timestamp not null
-);
+     id         SERIAL PRIMARY KEY,
+     uuid       VARCHAR (64) NOT NULL UNIQUE,
+     email      VARCHAR
+(255),
+     user_id    INTEGER REFERENCES users
+(id),
+     created_at TIMESTAMP NOT NULL
+  );
 
-create table leaderboard
+CREATE TABLE IF NOT EXISTS leaderboard
 (
-  id serial primary key,
-  username varchar(255) references users(username),
-  level integer DEFAULT 0,
-  solve_time timestamp not null
-);
+     id         SERIAL PRIMARY KEY,
+     username   VARCHAR
+(255) REFERENCES users
+(username),
+     level      INTEGER DEFAULT 0,
+     solve_time TIMESTAMP NOT NULL
+  );
 
-create table question_table
+
+CREATE TABLE IF NOT EXISTS question_table
 (
-  id serial primary key,
-  question varchar(100) not null
-);
+     id       SERIAL PRIMARY KEY,
+     question VARCHAR(100) NOT NULL,
+     answer VARCHAR(100) NOT NULL
+  );
+
+
+  CREATE TABLE IF NOT EXISTS answer_log
+  (
+       id SERIAL PRIMARY KEY,
+       username VARCHAR(100) NOT NULL,
+       level INT NOT NULL,
+       attempt VARCHAR NOT NULL,
+       at_time TIMESTAMP NOT NULL
+  );

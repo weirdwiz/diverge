@@ -16,7 +16,7 @@ func login(writer http.ResponseWriter, request *http.Request) {
 // GET /signup
 // Show the signup page
 func signup(writer http.ResponseWriter, request *http.Request) {
-	generateHTML(writer, nil, "login.layout", "public.navbar", "signup")
+	generateHTML(writer, nil, "login.layout", "public.navbar", "signup", "footer")
 }
 
 // POST /signup
@@ -27,12 +27,13 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 		danger(err, "Cannot parse form")
 	}
 	user := data.User{
-		Username: request.PostFormValue("name"),
+		Username: request.PostFormValue("username"),
 		Email:    request.PostFormValue("email"),
 		Password: request.PostFormValue("password"),
 	}
 	if err := user.Create(); err != nil {
 		danger(err, "Cannot create user")
+		errorMessage(writer, request, "Cannot create user, username or email already in use")
 	}
 	http.Redirect(writer, request, "/login", 302)
 }
@@ -41,7 +42,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 // Authenticate the user given the email and password
 func authenticate(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
-	user, err := data.UserByUsername(request.PostFormValue("username"))
+	user, err := data.UserByEmail(request.PostFormValue("email"))
 	if err != nil {
 		danger(err, "Cannot find user")
 	}

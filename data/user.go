@@ -1,6 +1,7 @@
 package data
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -57,26 +58,45 @@ func (user *User) GetQuestion() (question string, err error) {
 	if err != nil {
 		return
 	}
-	err = Db.QueryRow("SELECT question FROM question_table WHERE id = $1", level-1).Scan(question)
+	err = Db.QueryRow("SELECT question FROM question_table WHERE id = $1", level).Scan(&question)
+	return
+}
+
+// GetAnswer : get's the answer for user's current level
+func (user *User) GetAnswer() (answer string, err error) {
+	level, err := user.GetLevel()
+	if err != nil {
+		return
+	}
+	err = Db.QueryRow("SELECT answer FROM question_table WHERE id = $1;", level).Scan(&answer)
 	return
 }
 
 // GetLevel : returns the current level of the user
 func (user *User) GetLevel() (level int, err error) {
-	err = Db.QueryRow("SELECT level FROM leaderboard WHERE user_id = $1", user.ID).Scan(level)
+	err = Db.QueryRow("SELECT level FROM leaderboard WHERE username = $1", user.Username).Scan(&level)
 	return
 }
 
+// NextLevel : updates a user's level
+func (user *User) NextLevel() {
+	level, err := user.GetLevel()
+	if err != nil {
+		fmt.Println(err)
+	}
+	Db.QueryRow("UPDATE leaderboard SET level=$1, solve_time=$2 WHERE username = $3", level+1, time.Now(), user.Username)
+}
+
 // Check : Check if session is valID in the database
-func (session *Session) Check() (valID bool, err error) {
+func (session *Session) Check() (valid bool, err error) {
 	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = $1", session.UUID).
 		Scan(&session.ID, &session.UUID, &session.Email, &session.UserID, &session.CreatedAt)
 	if err != nil {
-		valID = false
+		valid = false
 		return
 	}
 	if session.ID != 0 {
-		valID = true
+		valid = true
 	}
 	return
 }
@@ -109,11 +129,17 @@ func SessionDeleteAll() (err error) {
 	return
 }
 
+// CheckIfExists : checks if username or email is taken
+func (user *User) CheckIfExists() (err error) {
+	return
+}
+
 // Create a new user, save user info into the database
 func (user *User) Create() (err error) {
 	// Postgres does not automatically return the last insert ID, because it would be wrong to assume
 	// you're always using a sequence.You need to use the RETURNING keyword in your insert to get this
 	// information from postgres.
+	err = user.CheckIfExists()
 	statement := "insert into users (uuid, username, email, password, created_at) values ($1, $2, $3, $4, $5) returning id, uuid, created_at"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
@@ -129,6 +155,15 @@ func (user *User) Create() (err error) {
 	l := LeaderBoardRow{}
 	err = Db.QueryRow("INSERT INTO leaderboard (username, level, solve_time) values ($1,$2,$3) returning username, level", user.Username, 0, time.Now()).Scan(&l.Username, &l.Level)
 	return
+}
+
+// LogAnswer : stores all the answers attempted
+func (user *User) LogAnswer(answer string) {
+	level, err := user.GetLevel()
+	if err != nil {
+		fmt.Println(err)
+	}
+	Db.QueryRow("INSERT INTO answer_log (username, level, attempt, at_time) values ($1,$2,$3,$4)", user.Username, level, answer, time.Now())
 }
 
 // Delete user from database
@@ -181,10 +216,10 @@ func Users() (users []User, err error) {
 	return
 }
 
-// UserByUsername : Get a single user given the username
-func UserByUsername(username string) (user User, err error) {
+// UserByEmail : Get a single user given the username
+func UserByEmail(email string) (user User, err error) {
 	user = User{}
-	err = Db.QueryRow("SELECT id, uuid, username, email, password, created_at FROM users WHERE username = $1", username).
+	err = Db.QueryRow("SELECT id, uuid, username, email, password, created_at FROM users WHERE email = $1", email).
 		Scan(&user.ID, &user.UUID, &user.Username, &user.Email, &user.Password, &user.CreatedAt)
 	return
 }
@@ -204,6 +239,7 @@ func GetLeaderBoard() (leaderbaord []*LeaderBoardRow, err error) {
 	if err != nil {
 		return
 	}
+	defer rows.Close()
 	for rows.Next() {
 		l := LeaderBoardRow{}
 		l.Rank = rank

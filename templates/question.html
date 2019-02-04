@@ -1,5 +1,6 @@
 {{ define "content" }}
-<form class="form-signin center" role="form" action="/authenticate" method="post">
+<div style="padding:20px">
+<form class="form-signin center center-block" role="form" action="/checkAnswer" style="width:50%" method="post">
     <h2 class="form-signin-heading">
         {{ . }}
     </h2>
@@ -8,5 +9,5 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     <br />
 </form>
-
+</div>
 {{ end }}
