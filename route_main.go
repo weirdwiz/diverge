@@ -18,12 +18,16 @@ func err(writer http.ResponseWriter, request *http.Request) {
 }
 
 func index(writer http.ResponseWriter, request *http.Request) {
-	_, err := session(writer, request)
-	launchtime, _ := time.Parse(time.RFC822, "04 Feb 19 15:30 UTC")
+	s, err := session(writer, request)
+	launchtime, _ := time.Parse(time.RFC822, "04 Feb 19 11:50 UTC")
 	if err != nil {
 		http.Redirect(writer, request, "/login", http.StatusFound)
 	} else {
-		if time.Now().Before(launchtime) {
+		user, err := s.User()
+		if err != nil {
+			danger("cannot detect username")
+		}
+		if time.Now().Before(launchtime) || user.Username != "weirdwiz" {
 			generateHTML(writer, nil, "index", "layout", "private.navbar", "footer")
 		} else {
 			http.Redirect(writer, request, "/play", http.StatusFound)
