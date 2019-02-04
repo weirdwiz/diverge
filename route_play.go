@@ -19,7 +19,7 @@ func showQuestion(w http.ResponseWriter, r *http.Request) {
 		q, err := u.GetQuestion()
 		if err != nil {
 			danger(err)
-			errorMessage(w, r, "There was a 2")
+			errorMessage(w, r, "There was a problem in getting the questions")
 		}
 		generateHTML(w, template.HTML(q), "question", "private.navbar", "layout", "footer")
 	}
