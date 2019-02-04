@@ -16,18 +16,19 @@ func showQuestion(w http.ResponseWriter, r *http.Request) {
 	} else {
 		if time.Now().Before(launchtime) {
 			http.Redirect(w, r, "/", http.StatusFound)
+		} else {
+			u, err := s.User()
+			if err != nil {
+				danger(err)
+				errorMessage(w, r, "There was a problem")
+			}
+			q, err := u.GetQuestion()
+			if err != nil {
+				danger(err)
+				errorMessage(w, r, "There was a problem in getting the questions")
+			}
+			generateHTML(w, template.HTML(q), "question", "private.navbar", "layout", "footer")
 		}
-		u, err := s.User()
-		if err != nil {
-			danger(err)
-			errorMessage(w, r, "There was a problem")
-		}
-		q, err := u.GetQuestion()
-		if err != nil {
-			danger(err)
-			errorMessage(w, r, "There was a problem in getting the questions")
-		}
-		generateHTML(w, template.HTML(q), "question", "private.navbar", "layout", "footer")
 	}
 }
 
