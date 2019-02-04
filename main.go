@@ -1,11 +1,22 @@
 package main
 
 import (
+	"crypto/tls"
+	"log"
 	"net/http"
 	"time"
+
+	"golang.org/x/crypto/acme/autocert"
 )
 
 func main() {
+
+	certManager := autocert.Manager{
+		Prompt:     autocert.AcceptTOS,
+		HostPolicy: autocert.HostWhitelist("example.com"), //Your domain here
+		Cache:      autocert.DirCache("certs"),            //Folder for storing certificates
+	}
+
 	p("Labyrinth", version(), "started at", config.Address)
 
 	// handle static assets
@@ -42,6 +53,12 @@ func main() {
 		ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
 		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
 		MaxHeaderBytes: 1 << 20,
+		TLSConfig: &tls.Config{
+			GetCertificate: certManager.GetCertificate,
+		},
 	}
-	server.ListenAndServe()
+
+	go http.ListenAndServe(":http", certManager.HTTPHandler(nil))
+
+	log.Fatal(server.ListenAndServeTLS("", "")) //Key and cert are coming from Let's Encrypt
 }
