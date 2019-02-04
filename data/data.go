@@ -5,9 +5,7 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
-	"io/ioutil"
 	"log"
-	"strings"
 
 	// Database
 	_ "github.com/lib/pq"
@@ -30,16 +28,6 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	dat, err := ioutil.ReadFile("data/setup.sql")
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, v := range strings.Split(string(dat), "\n\n") {
-		v = strings.Replace(v, "\n", "", -1)
-		fmt.Print(v)
-		Db.Exec(v)
-	}
-	return
 }
 
 // create a random UUID with from RFC 4122
