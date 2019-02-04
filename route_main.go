@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"time"
 )
 
 // GET /err?msg=
@@ -18,10 +19,15 @@ func err(writer http.ResponseWriter, request *http.Request) {
 
 func index(writer http.ResponseWriter, request *http.Request) {
 	_, err := session(writer, request)
+	launchtime, _ := time.Parse(time.RFC822, "04 Feb 19 15:30 UTC")
 	if err != nil {
 		http.Redirect(writer, request, "/login", http.StatusFound)
 	} else {
-		http.Redirect(writer, request, "/play", http.StatusFound)
+		if time.Now().Before(launchtime) {
+			generateHTML(writer, nil, "index", "layout", "private.navbar", "footer")
+		} else {
+			http.Redirect(writer, request, "/play", http.StatusFound)
+		}
 	}
 }
 
