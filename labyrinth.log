@@ -51,3 +51,12 @@ ERROR 2019/02/01 20:09:48 utils.go:102: dial tcp 68.183.81.97:5432: connect: con
 ERROR 2019/02/01 20:14:32 utils.go:102: dial tcp 68.183.81.97:5432: connect: connection refused Cannot create user
 ERROR 2019/02/01 20:16:24 utils.go:102: dial tcp 68.183.81.97:5432: connect: connection refused Cannot create user
 ERROR 2019/02/01 20:18:38 utils.go:102: dial tcp 68.183.81.97:5433: connect: connection refused Cannot create user
+ERROR 2019/02/04 07:06:24 utils.go:102: pq: password authentication failed for user "root" Cannot create user
+ERROR 2019/02/04 07:08:49 utils.go:102: pq: password authentication failed for user "root" Cannot create user
+ERROR 2019/02/04 07:16:07 utils.go:102: sql: no rows in result set
+ERROR 2019/02/04 07:16:07 utils.go:102: sql: no rows in result set
+ERROR 2019/02/04 07:16:14 utils.go:102: sql: no rows in result set
+ERROR 2019/02/04 07:16:15 utils.go:102: sql: no rows in result set
+ERROR 2019/02/04 07:16:17 utils.go:102: sql: no rows in result set
+ERROR 2019/02/04 07:16:22 utils.go:102: sql: no rows in result set
+ERROR 2019/02/04 07:16:22 utils.go:102: sql: no rows in result set

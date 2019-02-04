@@ -16,18 +16,17 @@ import (
 // Db : the variable to access the database connection
 var Db *sql.DB
 
-// const (
-// 	host     = "68.183.81.97"
-// 	port     = 5433
-// 	user     = "postgres"
-// 	password = "herokusucks"
-// 	dbname   = "labyrinth"
-// )
+ const (
+ 	user     = "postgres"
+ 	password = "postgres"
+ 	dbname   = "labyrinth"
+ )
 
 func init() {
 	var err error
-	// Db, err = sql.Open("postgres", psqlInfo)
-	Db, err = sql.Open("postgres", "dbname=labyrinth sslmode=disable")
+	psqlInfo := fmt.Sprintf("user=%s "+"password=%s dbname=%s sslmode=disable",user, password, dbname)
+	Db, err = sql.Open("postgres", psqlInfo)
+	// Db, err = sql.Open("postgres", "dbname=labyrinth sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
