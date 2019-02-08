@@ -1,8 +1,0 @@
-ERROR 2019/01/19 17:42:31 utils.go:100: pq: database "chitchat" does not exist Cannot create user
-ERROR 2019/01/19 17:42:44 utils.go:100: pq: database "chitchat" does not exist Cannot find user
-ERROR 2019/01/19 17:42:57 utils.go:100: pq: database "chitchat" does not exist Cannot create user
-ERROR 2019/01/19 17:43:01 utils.go:100: pq: database "chitchat" does not exist Cannot find user
-ERROR 2019/01/20 17:08:04 utils.go:102: pq: column "name" does not exist Cannot find user
-ERROR 2019/01/20 17:09:01 utils.go:102: pq: column "name" does not exist Cannot find user
-ERROR 2019/01/20 17:09:24 utils.go:102: pq: column "name" does not exist Cannot find user
-WARNING 2019/01/20 18:36:26 utils.go:107: <nil> Failed to get cookie
